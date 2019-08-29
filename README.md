@@ -22,6 +22,6 @@ The project can be divided into 4 major phases as follows:
 ### Phase 1 ([WB Scraper](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/World%20Bank%20DB%20Scraper.py))
 - __Introduction__: Macroeconomic data (Independent Features) were obtained from World Bank's Indicators API; it was accessed using wbdata library for python. Temperature data (Target Feature) was obtained using World Bank's climate API; it was accessed using wbpy library.
 - __Process__:
-1. World Bank's database has regional data. The primary regional division used is countries. Therefore, the API requires country code commands when requesting data. Thus forming a list of countries was the first stage.
-2. The second major requirement is the Indicator code needed by the API which tells it to provide the requested macroeconomic indicator (for instance GDP per capita). Thus a dictionary of indicators was developed.
-3. Temperature data (Target feature) was obtained from a separate API; the WB climate API. 
+1. World Bank's database has regional data. The primary regional division used is countries. The API requires country code commands when requesting data. Thus, forming a list of countries was the first stage.
+2. The second major requirement is the Indicator code needed by the API which tells it to provide the requested macroeconomic indicator (for instance GDP per capita). Thus, a dictionary of indicators was developed.
+3. Temperature data (Target feature) was obtained from a separate API; the WB climate API.

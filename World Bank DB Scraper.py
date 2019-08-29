@@ -9,8 +9,6 @@ import json
 import wbdata
 import wbpy
 import datetime as dt
-import pyreadr
-import re
 
 class world_bank_scraper:
 # Scraping world bank data and forming Df required for analysis
@@ -18,19 +16,6 @@ class world_bank_scraper:
     def __init__(self):
         pass
 
-    # Main data to be extracted is from the WB Indicators. There are 2 options, through topics or sources.
-    # Thus the first task is to view the list of topics or sources as required
-
-# Extracts complete list of topics/sources from WB API
-    @staticmethod
-    def view_sources_topics():
-        a=input('View list of sources or topics?')
-        if a in ['sources','source','source list','sources list']:
-            wbdata.get_source()
-        if a in ['topic','topics','topic list','topics list']:
-            wbdata.get_topic()
-        else:
-            print('Please enter whether you require sources or topics')
 
 # When extracting data from world bank's API, country code needs to be specified, the following method extracts dictionary of countries and removes some
 # regional aggregations that are irrelevant and would interfere with extraction of climate data
@@ -61,8 +46,22 @@ class world_bank_scraper:
         self.ClimateDf=ClimateDf.rename(mapper={'level_0':'country', 'level_1':'date',0:'Temp(C)'},axis=1)
         return self.ClimateDf
 
-# Forms a dictionary of indicator codes along with their names for later extraction of Df
-## My own process was to first extract the indicators I wanted and then form one consolidated dictionary to get the Df
+# All independent features are to be extracted from the WB Indicators API. There are 2 options, through topics or sources.
+# Thus the first task is to view the list of topics or sources as required
+
+    # Following method extracts the complete list of topics/sources from WB API
+    @staticmethod
+    def view_sources_topics():
+        a=input('View list of sources or topics?')
+        if a in ['sources','source','source list','sources list']:
+            wbdata.get_source()
+        if a in ['topic','topics','topic list','topics list']:
+            wbdata.get_topic()
+        else:
+            print('Please enter whether you require sources or topics')
+
+
+    # Creates a dict of requested indicators extracted from source.
     def ind_dict_from_source(self,sourcelist:list):
         ind=[]
         for i in sourcelist:
@@ -72,6 +71,7 @@ class world_bank_scraper:
         self.SourceInds={k:v for d in ind for k,v in d.items()}
         return self.SourceInds
 
+    # Creates a dict of requested indicators extracted from topics.
     def ind_dict_from_topic(self,topiclist:list):
         ind=[]
         for i in topiclist:
@@ -94,8 +94,7 @@ class world_bank_scraper:
         X=[]
         for c in Inds:
             try:
-                a=wbdata.get_data(indicator=c,'''country=countrylist''' #figure out how to handle the countrylist later)
-            except:
+                a=wbdata.get_data(indicator=c, country=self.countrylist)
                 print(c)
                 X.append(c)
                 continue
