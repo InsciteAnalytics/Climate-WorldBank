@@ -14,9 +14,9 @@ This is the development phase of the project. Following are the major goals:
 
 ## Project Overview
 The project can be divided into 4 major phases as follows:
-Phase 1: Data extraction
-Phase 2: Data Cleaning
-Phase 3: Modeling
-Phase 4: Exploring
+- Phase 1: Data extraction
+- Phase 2: Data Cleaning
+- Phase 3: Modeling
+- Phase 4: Exploring
 
 ### Phase 1 ([WB Scraper](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/World%20Bank%20DB%20Scraper.py))
