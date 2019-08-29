@@ -87,8 +87,7 @@ class world_bank_scraper:
         return self.Indicators
 
 
-# After getting a dictionary, it was important to extract the indicators that were not available in the API causing error in the Df formation
-
+    # After getting a dictionary, it was important to extract the indicators that were not available in the API causing error in the Df formation
     def na_indicators_del(self):
         Inds=[c for c in self.Indicators]
         X=[]
@@ -101,13 +100,14 @@ class world_bank_scraper:
         self.Indicators2={s:d for s,d in self.Indicators.items() if s not in X}
         return self.Indicators2
 
-
+# The API becomes slow/unresponsive after extraction of around 50 indicators possibly due to restrictions. The Following
+    # Creates a list of dictionaries, each dict containing 50 indicators each
     def chunks(self, Indicators, SIZE):
         it = iter(self.Indicators2)
         for i in range(0, len(self.Indicators2), SIZE):
             yield {k:self.Indicators2[k] for k in islice(it, SIZE)}
 
-
+    # Extracts each DataFrame of 50 features and waits 2 minutes to proceed to next 50. Saves each Df to file
     def get_Df(self):
         self.IndList= [item for item in self.chunks({i:j for i,j in self.Indicators2.items()},50)]
         its=iter(self.IndList)
