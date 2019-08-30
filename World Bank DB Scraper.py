@@ -17,9 +17,10 @@ class world_bank_scraper:
         pass
 
 
-# When extracting data from world bank's API, country code needs to be specified, the following method extracts dictionary of countries and removes some
-# regional aggregations that are irrelevant and would interfere with extraction of climate data
+# When extracting data from world bank's API, country code needs to be specified
 
+    # the following method extracts dictionary of countries and removes some regional aggregations that are irrelevant
+    # and would interfere with extraction of climate data
     def get_country_list(self):
         s=wbdata.get_country(display=False)
         a = {c.get('id'):c.get('iso2Code') for c in s}
@@ -30,7 +31,7 @@ class world_bank_scraper:
         return self.countrylist
 
 
- # Extracting Temperature (Target feature of the analysis) Data from World Bank Climate API
+    # Extracting Temperature (Target feature of the analysis) Data from World Bank Climate API
     def get_climate_data(self):
         c_api = wbpy.ClimateAPI()
         dataset1 = c_api.get_instrumental(data_type="tas", interval="year", locations=self.countrylist)
@@ -81,9 +82,14 @@ class world_bank_scraper:
         self.TopicInds={k:v for d in ind for k,v in d.items()}
         return self.TopicInds
 
-# Removes duplicate indicators and combines indicators extracted from sources as well as topics
+    # Removes duplicate indicators and combines indicators extracted from sources as well as topics
     def form_indicator_dict(self):
-        self.Indicators={**self.SourceInds,**self.TopicInds}
+        try:
+            self.Indicators={**self.SourceInds,**self.TopicInds}
+        except AttributeError:
+            self.Indicators=self.TopicInds
+        except AttributeError:
+            self.Indicators=self.SourceInds
         return self.Indicators
 
 
@@ -94,13 +100,14 @@ class world_bank_scraper:
         for c in Inds:
             try:
                 a=wbdata.get_data(indicator=c, country=self.countrylist)
-                print(c)
+            except:
                 X.append(c)
                 continue
         self.Indicators2={s:d for s,d in self.Indicators.items() if s not in X}
         return self.Indicators2
 
 # The API becomes slow/unresponsive after extraction of around 50 indicators possibly due to restrictions. The Following
+
     # Creates a list of dictionaries, each dict containing 50 indicators each
     def chunks(self, Indicators, SIZE):
         it = iter(self.Indicators2)
