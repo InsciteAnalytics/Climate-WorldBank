@@ -33,6 +33,7 @@ class world_bank_scraper:
 
     # Extracting Temperature (Target feature of the analysis) Data from World Bank Climate API
     def get_climate_data(self):
+        s=wbdata.get_country(display=False)
         c_api = wbpy.ClimateAPI()
         dataset1 = c_api.get_instrumental(data_type="tas", interval="year", locations=self.countrylist)
         dataset1=dataset1.as_dict()
@@ -88,7 +89,7 @@ class world_bank_scraper:
             self.Indicators={**self.SourceInds,**self.TopicInds}
         except AttributeError:
             self.Indicators=self.TopicInds
-        except AttributeError:
+        except:
             self.Indicators=self.SourceInds
         return self.Indicators
 
