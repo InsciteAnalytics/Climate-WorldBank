@@ -93,10 +93,18 @@ class world_bank_scraper:
             self.Indicators=self.SourceInds
         return self.Indicators
 
+    # Removing remaining duplicate indicators (if any)
+    def duplicate_doublecheck(self):
+        self.Indicators2={}
+        for key,value in self.Indicators.items():
+            if key not in self.Indicators2:
+                self.Indicators2[key] = value
+        return self.Indicators2
+
 
     # After getting a dictionary, it was important to extract the indicators that were not available in the API causing error in the Df formation
     def na_indicators_del(self):
-        Inds=[c for c in self.Indicators]
+        Inds=[c for c in self.Indicators2]
         X=[]
         for c in Inds:
             try:
@@ -104,20 +112,20 @@ class world_bank_scraper:
             except:
                 X.append(c)
                 continue
-        self.Indicators2={s:d for s,d in self.Indicators.items() if s not in X}
-        return self.Indicators2
+        self.Indicators3={s:d for s,d in self.Indicators2.items() if s not in X}
+        return self.Indicators3
 
 # The API becomes slow/unresponsive after extraction of around 50 indicators possibly due to restrictions. The Following
 
     # Creates a list of dictionaries, each dict containing 50 indicators each
     def chunks(self, Indicators, SIZE):
-        it = iter(self.Indicators2)
-        for i in range(0, len(self.Indicators2), SIZE):
-            yield {k:self.Indicators2[k] for k in islice(it, SIZE)}
+        it = iter(self.Indicators3)
+        for i in range(0, len(self.Indicators3), SIZE):
+            yield {k:self.Indicators3[k] for k in islice(it, SIZE)}
 
     # Extracts each DataFrame of 50 features and waits 2 minutes to proceed to next 50. Saves each Df to file
     def get_Df(self):
-        self.IndList= [item for item in self.chunks({i:j for i,j in self.Indicators2.items()},50)]
+        self.IndList= [item for item in self.chunks({i:j for i,j in self.Indicators3.items()},50)]
         its=iter(self.IndList)
         for k in range(0, len(self.IndList), 1):
             sleep(120)
