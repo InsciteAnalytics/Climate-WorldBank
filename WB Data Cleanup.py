@@ -30,10 +30,26 @@ class data_cleanup(world_bank_scraper):
         self.Train.drop(labels=droplist,axis=1,inplace=True)
         return self.Train
 
-    #Removing multicollinearity in excess of 90%
+    # Removing multicollinearity in excess of 90%
     def remove_highcoll_feats(self):
         corr_matrix = self.Train.corr().abs()
         uppertrian = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
         to_drop = [column for column in uppertrian.columns if any(uppertrian[column] > 0.90)]
         self.Train.drop(labels=to_drop,axis=1,inplace=True)
+        return self.Train
+
+    # Adding target feature to Df & removing rows where Temp(C) is NaN
+    def target_feat_merge(self):
+        self.Train=pd.merge(self.Train,self.ClimateDf,on=['country','date'])
+        emptytarget=self.Train[self.Train['Temp(C)'].isnull()].index
+        self.Train.drop(index=emptytarget,inplace=True)
+        self.Train.reset_index(inplace=True).drop(labels='index',axis=1,inplace=True)
+        return self.Train
+
+    # Remove countries with over 90% missing values
+    def remove_highMV_countries(self):
+        indices=[self.Train[self.Train['country']==i].index for i,j in self.Train.groupby('country') if (j.isnull().sum().mean()/len(j))>=0.9]
+        droplist=[a for i in indices for a in i]
+        self.Train.drop(index=droplist,inplace=True)
+        self.Train.reset_index(inplace=True).drop(labels='index',axis=1,inplace=True)
         return self.Train
