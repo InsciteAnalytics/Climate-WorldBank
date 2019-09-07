@@ -3,6 +3,7 @@ import numpy as np
 import json
 import pickle
 from sklearn.preprocessing import StandardScaler
+from sklearn.compose import ColumnTransformer
 
 class data_cleanup(world_bank_scraper):
     # The extracted Df had 2 major issues: sparseness, multicollinearity.
@@ -43,7 +44,8 @@ class data_cleanup(world_bank_scraper):
         self.Train=pd.merge(self.Train,self.ClimateDf,on=['country','date'])
         emptytarget=self.Train[self.Train['Temp(C)'].isnull()].index
         self.Train.drop(index=emptytarget,inplace=True)
-        self.Train.reset_index(inplace=True).drop(labels='index',axis=1,inplace=True)
+        self.Train.reset_index(inplace=True)
+        self.Train.drop(labels='index',axis=1,inplace=True)
         return self.Train
 
     # Remove countries with over 90% missing values
@@ -51,5 +53,29 @@ class data_cleanup(world_bank_scraper):
         indices=[self.Train[self.Train['country']==i].index for i,j in self.Train.groupby('country') if (j.isnull().sum().mean()/len(j))>=0.9]
         droplist=[a for i in indices for a in i]
         self.Train.drop(index=droplist,inplace=True)
-        self.Train.reset_index(inplace=True).drop(labels='index',axis=1,inplace=True)
+        self.Train.reset_index(inplace=True)
+        self.Train.drop(labels='index',axis=1,inplace=True)
+        return self.Train
+
+    # Countrywise Standardisation of Df, excluding date, country and target features
+    def countrywise_standardisation(self):
+        CountryWiseDf={s:d for s,d in self.Train.groupby('country')}
+        cols=self.Train.columns.tolist()
+        cols=cols[+2:-1]+cols[:+2]+cols[-1:]
+        self.StandardisedDfs={}
+        for s,d in CountryWiseDf.items():
+            ctr=ColumnTransformer([('strange',StandardScaler(),[i for i in d.columns if i not in ['country','date','Temp(C)']])],verbose=True,remainder='passthrough')
+            strain=ctr.fit_transform(d)
+            strain=pd.DataFrame(strain,columns=cols)
+            self.StandardisedDfs[s]=strain
+        return self.StandardisedDfs
+
+    # Converting Temp(C) values to indices base year 1960
+    def temp_to_index(self):
+        for i,g in self.StandardisedDfs.items():
+            base=float(g[g['date']=='1960']['Temp(C)'])
+            g['Temp(C)']=g['Temp(C)']-base
+        newdfs=[j for i,j in StandardisedDfs.items()]
+        self.Train=pd.concat(newdfs)
+        self.Train=self.Train.infer_objects()
         return self.Train
