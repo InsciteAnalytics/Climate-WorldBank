@@ -57,7 +57,7 @@ class data_cleanup(world_bank_scraper):
         self.Train.drop(labels='index',axis=1,inplace=True)
         return self.Train
 
-    # Countrywise Standardisation of Df, excluding date, country and target features
+    # Countrywise Standardisation of Df, excluding date, country and target feature
     def countrywise_standardisation(self):
         CountryWiseDf={s:d for s,d in self.Train.groupby('country')}
         cols=self.Train.columns.tolist()
