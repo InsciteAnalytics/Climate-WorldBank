@@ -26,10 +26,10 @@ The project can be divided into 4 major phases as follows:
 2. The second major requirement is the Indicator code needed by the API which tells it to provide the requested macroeconomic indicator (for instance GDP per capita). Thus, a dictionary of indicators was developed.
 3. Temperature data (Target feature) was obtained from a separate API; the WB climate API.
 
-### Phase 2 ([WB DataCleaning](link))
+### Phase 2 ([WB DataCleaning](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/WB%20Data%20Cleanup.py))
 
-The extracted data had two major issues: sparseness (high number of missing values) & multicollinearity. There were several steps involved in the cleaning process, many of them were based on close examination of the data. Details can be found in the EDA notebook ([EDA](link)).
+The extracted data had two major issues: sparseness (high number of missing values) & multicollinearity. There were several steps involved in the cleaning process, many of them were based on close examination of the data. Details can be found in the EDA notebook ([EDA](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/EDA.ipynb)).
 
-### Phase 3 ([WB Modeling](link))
+### Phase 3 ([WB Modeling](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/WB%20Modeling.py))
 
-After trying several methods of dealing with missing values ranging from complete removal to several forms of imputation, it was clear that complete removal/imputation of missing values would alter the data too significantly. Thus, choice of algorithm was simple - XGboost - one of the few algos that works in such situations. 
+After trying several methods of dealing with missing values ranging from complete removal to several forms of imputation, it was clear that complete removal/imputation of missing values would alter the data too significantly. Thus, choice of algorithm was simple - XGboost - one of the few algos that works with missing values.
