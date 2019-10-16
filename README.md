@@ -15,9 +15,9 @@ This is the development phase of the project. Following are the major goals:
 ## Project Overview
 The project can be divided into 4 major phases as follows:
 - Phase 1: Data extraction
-- Phase 2: Data Cleaning
+- Phase 2: Exploratory data analysis / Data cleaning
 - Phase 3: Modeling
-- Phase 4: Exploring
+- Phase 4: Interpretive Data Analysis
 
 ### Phase 1 ([WB Scraper](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/World%20Bank%20DB%20Scraper.py))
 - __Introduction__: Macroeconomic data (Independent Features) were obtained from World Bank's Indicators API; it was accessed using wbdata library for python. Temperature data (Target Feature) was obtained using World Bank's climate API; it was accessed using wbpy library.
@@ -32,4 +32,9 @@ The extracted data had two major issues: sparseness (high number of missing valu
 
 ### Phase 3 ([WB Modeling](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/WB%20Modeling.py))
 
-After trying several methods of dealing with missing values ranging from complete removal to several forms of imputation, it was clear that complete removal/imputation of missing values would alter the data too significantly. Thus, choice of algorithm was simple - XGboost - one of the few algos that works with missing values.
+Machine learning was primarily used to assist interpretive data analysis. Given the high number of features relative to training examples (high dimensionality), a predictive model was built and optimized primarily to identify important features from the dataset.
+After trying several methods of dealing with missing values ranging from complete removal to multiple forms of imputation, it was clear that complete removal/imputation of missing values would alter the data too significantly. Thus, choice of algorithm was simple - XGboost - one of the few algos that works with missing values.
+
+### Phase 4 ([WB Interpretation](link))
+
+Due to the size of the dataset, complete reliance on the feature importance function could be problematic. However, it is still a great starting point as compared to exhaustive univariate/bivariate plotting and analysis which is often inconclusive. 
