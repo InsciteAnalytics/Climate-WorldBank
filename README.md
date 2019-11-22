@@ -28,7 +28,7 @@ The extracted data had two major issues: sparseness (high number of missing valu
 ### Phase 3 ([WB Modeling](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/WB%20Modeling.py))
 
 Machine learning was primarily used to assist interpretive data analysis. Given the high number of features relative to training examples (high dimensionality), a predictive model was built and optimized primarily to identify important features from the dataset.
-After trying several methods of dealing with missing values ranging from complete removal to multiple forms of imputation, it was clear that complete removal/imputation of missing values would alter the data too significantly. Thus, choice of algorithm was simple - XGboost - one of the few algos that works with missing values. Another major reason was the feature importance ranking capability of XGboost which is vital given the project objectives.
+After trying several methods of dealing with missing values ranging from complete removal to multiple forms of imputation, it was clear that complete removal/imputation of missing values would alter the data too significantly. Thus, choice of algorithm was simple - XGboost - one of the few algos that works with missing values. Another major reason was the feature importance ranking capability of XGboost which is vital given the project's objectives.
 
 ### Phase 4 ([WB Interpretation](link))
 
