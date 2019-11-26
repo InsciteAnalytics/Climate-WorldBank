@@ -1,4 +1,4 @@
-__Update as of 25/11/2019:__ Although a good blue print has been formulated, I am in the process of acquiring more data as well as performing further research on the features that showed promise.
+__Update as of 25/11/2019:__ Although a good blue print has been formulated, I am in the process of acquiring more data as well as performing further research on the features that showed promise in order to build a robust predictive model.
 
 # Climate-WorldBank (Beta)
 
