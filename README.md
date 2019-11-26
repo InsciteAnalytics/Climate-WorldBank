@@ -1,5 +1,6 @@
-# Climate-WorldBank (Beta)
 __Update as of 25/11/2019:__ Although a good blue print has been formulated, I am in the process of acquiring more data as well as performing further research on the features that showed promise.
+
+# Climate-WorldBank (Beta)
 
 Analysis of raw macroeconomic data to explore potential links with global warming
 
