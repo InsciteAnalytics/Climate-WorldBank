@@ -1,8 +1,13 @@
-__Update as of 25/11/2019:__ Although a good blue print has been formulated, I am in the process of acquiring more data as well as performing further research on the features that showed promise in order to build a robust predictive model.
+__Update as of 13/03/2020:__
+- Although a good blue print has been formulated, I am in the process of acquiring more data as well as performing further research on the features that showed promise in order to build a robust predictive model.
+- Added an interactive plot displaying country-wise temperature change.
 
 # Climate-WorldBank (Beta)
 
 Analysis of raw macroeconomic data to explore potential links with global warming
+
+### Temperature change snapshot
+Following link gives a quick snapshot of the country-wise magnitude of temperature change over the period 1901-2012: ([Interactive Temp Change](https://wbplot.s3.amazonaws.com/tp.html))
 
 ## Data Source
 World Bank's (WB) APIs are an excellent free resource for macroeconomic data. All the data used in the project has been obtained either from WB's Indicators API or their Climate API.
