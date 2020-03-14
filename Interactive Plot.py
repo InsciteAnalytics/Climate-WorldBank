@@ -42,7 +42,7 @@ for i in newcntlist:
 # Forming final Df for using in plot
 geodf=pd.merge(gdf,Train,on='country')
 
-# Making the plot and using panel for embedding to enable later use
+# Making the plot and using panel for embedding to enable later use (saved plot as html file named 'tp')
 tooltips = [
     ('Country', '@country'),
     ('ΔTemp(1901-2012)', '@tempchange')
