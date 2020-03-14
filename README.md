@@ -7,7 +7,7 @@ __Update as of 13/03/2020:__
 Analysis of raw macroeconomic data to explore potential links with global warming
 
 ### Temperature change snapshot
-Following link gives a quick snapshot of the country-wise magnitude of temperature change over the period 1901-2012: ([Interactive Temp Change](https://wbplot.s3.amazonaws.com/tp.html))
+Following link gives a quick snapshot of the country-wise magnitude of temperature change over the period 1901-2012: ([Interactive Temp Change](https://wbplot.s3.amazonaws.com/tp.html)). This was a mini project on its own; the code is available here: ([Plot Code](https://github.com/InsciteAnalytics/Climate-WorldBank/blob/master/Interactive%20Plot.py))
 
 ## Data Source
 World Bank's (WB) APIs are an excellent free resource for macroeconomic data. All the data used in the project has been obtained either from WB's Indicators API or their Climate API.
