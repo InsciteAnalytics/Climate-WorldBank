@@ -2,7 +2,7 @@ __Update as of 13/03/2020:__
 - Although a good blue print has been formulated, I am in the process of acquiring more data as well as performing further research on the features that showed promise in order to build a robust predictive model.
 - Added an interactive plot displaying country-wise temperature change.
 
-# Climate-WorldBank (Beta)
+# Climate-WorldBank
 
 Analysis of raw macroeconomic data to explore potential links with global warming
 
