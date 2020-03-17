@@ -30,7 +30,7 @@ gdf.columns = ['country', 'country_code', 'geometry']
 gdf.drop(gdf.index[163],inplace=True)
 gdf.reset_index().drop('index',axis=1,inplace=True)
 
-# Sao Tome & Principe had strange character in its name that had to be fixed
+# Sao Tome & Principe had strange characters in its name that had to be fixed
 gdf.replace(to_replace=gdf.country.loc[188],value='Sao Tome and Principe',inplace=True)
 
 # Adding geometry of some missing countries from shapefile1 above
